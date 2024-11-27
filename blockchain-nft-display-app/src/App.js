@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { contractABI } from "./contractABI";
 
-const contractAddress = "YOUR_CONTRACT_ADDRESS"; // Replace with your deployed contract address
-const contractABI = [
-  // Replace this with the ABI from artifacts/contracts/MyNFT.json
-];
+const contractAddress = "DEPLOYED_CONTRACT_ADDRESS"; // Replace with your deployed contract address
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -19,7 +16,8 @@ function App() {
       return;
     }
     try {
-      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const accounts = await provider.send("eth_requestAccounts", []);
       setCurrentAccount(accounts[0]);
     } catch (error) {
       console.error("Error connecting wallet:", error);
@@ -28,7 +26,7 @@ function App() {
 
   const checkOwner = async () => {
     if (!currentAccount) return;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
     const owner = await contract.owner();
     setIsOwner(owner.toLowerCase() === currentAccount.toLowerCase());
@@ -37,7 +35,7 @@ function App() {
   const loadNFTs = async () => {
     if (!window.ethereum) return;
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
     const baseURI = await contract.baseTokenURI();
     const nextTokenId = await contract.nextTokenId();
@@ -55,8 +53,8 @@ function App() {
       return;
     }
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
     try {
