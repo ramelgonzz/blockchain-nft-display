@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
+// open zeppelin library for ERC721 standard support
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -16,7 +17,7 @@ contract MyNFT is ERC721, Ownable {
         baseTokenURI = _baseTokenURI;
     }
 
-    function mint(address to) public onlyOwner {
+    function mint(address to) public onlyOwner { //mint function for NFTs
         _safeMint(to, nextTokenId);
         nextTokenId++;
     }
