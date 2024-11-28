@@ -2,17 +2,36 @@
 
 ## Dependencies
 
-- npm install --save-dev hardhat
-- npm install ethers
-- npm install @openzeppelin/contracts
+```
+npm install --save-dev hardhat
+npm install ethers
+npm install @openzeppelin/contracts
+```
 
 ## To run:
 
-Deploy contract:
-- npx hardhat run scripts/deploy.js --network localhost
-
 Start node:
-- npx hardhat node
+```
+npx hardhat node
+```
+
+Deploy contract:
+```
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+Copy smart contract address to App.js
+
+cd to blockchain-nft-display-app
+
+Install React app dependencies
+```
+npm install
+```
+Start the React app
+```
+npm start
+```
 
 Connect with Metamask using:
 - Network Name: Hardhat Local
