@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { contractABI } from "./contractABI";
+import './App.css';
 
 const contractAddress = "DEPLOYED_CONTRACT_ADDRESS"; // Replace with your deployed contract address
 
