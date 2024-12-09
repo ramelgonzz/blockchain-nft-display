@@ -9,13 +9,17 @@ async function main() {
 
     const MyNFT = await hre.ethers.getContractFactory("MyNFT"); //send a special type of transaction. an initcode transaction (bytecode)
     const myNFT = await MyNFT.deploy(initialOwner, baseTokenURI); //method to deploy the smart contract
+    // Wait for the deployment transaction to be mined
+    await myNFT.waitForDeployment();
 
-    await myNFT.deployed(); //send message after deployment completes
-    console.log("MyNFT deployed to:", myNFT.address);
+    // Get the contract address
+    const contractAddress = await myNFT.getAddress();
+    
+    console.log("MyNFT deployed to:", contractAddress);
     console.log("Contract ownership assigned to:", initialOwner);
 }
 
 main().catch((error) => { //catch error and exit in case anything fails
     console.error(error);
-    process.exitCode = 1;
+    process.exit(1);
 });
