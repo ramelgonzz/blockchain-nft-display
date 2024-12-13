@@ -1,5 +1,7 @@
 # blockchain-nft-display
 
+This application connects to an Ethereum network (use Metamask to test) and displays the wallet string with available (mock) NFTs as a gallery, locally.
+
 ## Dependencies
 
 ```
@@ -43,7 +45,7 @@ Import an account with hardhat using one of the keys from the test node.
 
 ## TODO
 
-- Write a Solity contract
-- Deploy contract
-- Build frontend
-- Run project locally
+- Write a Solity contract ✅
+- Deploy contract ✅
+- Build frontend ✅
+- Run project locally ✅

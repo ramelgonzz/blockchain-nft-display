@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { contractABI } from "./contractABI";
 import './App.css';
 
-const contractAddress = "DEPLOYED_CONTRACT_ADDRESS"; // Replace with your deployed contract address
+const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with your deployed contract address
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -34,6 +34,7 @@ function App() {
   };
 
   const loadNFTs = async () => {
+    /*
     if (!window.ethereum) return;
 
     const provider = new ethers.BrowserProvider(window.ethereum);
@@ -45,7 +46,20 @@ function App() {
     for (let i = 0; i < nextTokenId; i++) {
       nftList.push(`${baseURI}${i}.json`);
     }
-    setNFTs(nftList);
+      setNFTs(nftList);
+    */
+     // Mock data for testing the UI
+    const mockNFTs = [
+    "https://via.placeholder.com/300x300?text=NFT+1",
+    "https://via.placeholder.com/300x300?text=NFT+2",
+    "https://via.placeholder.com/300x300?text=NFT+3",
+    "https://via.placeholder.com/300x300?text=NFT+4",
+    "https://via.placeholder.com/300x300?text=NFT+5",
+    "https://via.placeholder.com/300x300?text=NFT+6",
+    "https://via.placeholder.com/300x300?text=NFT+7",
+    "https://via.placeholder.com/300x300?text=NFT+8",
+    ];
+    setNFTs(mockNFTs);
   };
 
   const mintNFT = async () => {
@@ -76,34 +90,47 @@ function App() {
   }, [currentAccount]);
 
   return (
-    <div>
-      <h1>My NFT Gallery</h1>
-      {!currentAccount ? (
-        <button onClick={connectWallet}>Connect Wallet</button>
-      ) : (
-        <div>
-          <p>Connected Account: {currentAccount}</p>
-          <button onClick={loadNFTs}>Refresh NFTs</button>
-          {isOwner && (
-            <div>
-              <h2>Mint a New NFT</h2>
-              <input
-                type="text"
-                placeholder="Recipient Address"
-                value={mintAddress}
-                onChange={(e) => setMintAddress(e.target.value)}
-              />
-              <button onClick={mintNFT}>Mint NFT</button>
+    <div className="container">
+      <div className="header">
+        <h1>NFT Gallery</h1>
+        {!currentAccount ? (
+          <button onClick={connectWallet}>Connect Wallet</button>
+        ) : (
+          <>
+            <div className="wallet-info">
+              <span>Connected: {currentAccount.slice(0, 6)}...{currentAccount.slice(-4)}</span>
+              <button onClick={loadNFTs}>Refresh Gallery</button>
             </div>
-          )}
-          <h2>Your NFTs</h2>
-          <div>
-            {nfts.map((nft, index) => (
-              <img key={index} src={nft} alt={`NFT ${index}`} style={{ width: "200px", margin: "10px" }} />
-            ))}
-          </div>
-        </div>
-      )}
+
+            {isOwner && (
+              <div className="mint-section">
+                <h2>Mint New NFT</h2>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Enter recipient address"
+                    value={mintAddress}
+                    onChange={(e) => setMintAddress(e.target.value)}
+                  />
+                  <button onClick={mintNFT}>Mint NFT</button>
+                </div>
+              </div>
+            )}
+
+            <div className="nft-grid">
+              {nfts.map((nft, index) => (
+                <div key={index} className="nft-card">
+                  <img src={nft} alt={`NFT ${index}`} />
+                  <div className="nft-info">
+                    <h3>NFT #{index + 1}</h3>
+                    <p>Token ID: {index}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
