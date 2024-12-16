@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { contractABI } from "./contractABI";
 import './App.css';
 
-const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with your deployed contract address
+const contractAddress = "DEPLOYED_CONTRACT_ADDRESS"; // Mock Hardhat address: Replace with your deployed contract address
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
